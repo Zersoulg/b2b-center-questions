@@ -35,10 +35,10 @@ class TaskCode {
     /**
      * Напишите запрос, возвращающий имя и число указанных телефонных номеров девушек в возрасте от 18 до 22 лет.
      *
-     * @return void
+     * @return array
      */
-    public function getFemalesBetween18and22() {
-        mysqli_query($this->con,
+    public function getFemalesBetween18and22(): array {
+        $result = mysqli_fetch_all(mysqli_query($this->con,
             "SELECT u.name, COUNT(pn.id) AS count_of_phone_numbers
                     FROM phone_numbers AS pn
                     LEFT JOIN users AS u ON u.id = pn.user_id 
@@ -47,8 +47,10 @@ class TaskCode {
                               BETWEEN 
                                 UNIX_TIMESTAMP(NOW() - INTERVAL 22 YEAR) AND UNIX_TIMESTAMP(NOW() - INTERVAL 18 YEAR) 
                     GROUP BY pn.user_id;"
-        );
+        ));
 
         mysqli_close($this->con);
+
+        return $result;
     }
 }

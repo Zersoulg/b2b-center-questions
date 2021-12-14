@@ -24,7 +24,7 @@ class TaskCode {
     /**$key
      * @return string
      */
-    public function prettyURL(): string {
+    public static function prettyURL(): string {
         // Удалим содержимое со значением 3
         $parsedString = [];
 
